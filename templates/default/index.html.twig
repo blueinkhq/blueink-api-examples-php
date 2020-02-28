@@ -1,0 +1,80 @@
+{% extends 'layout.html.twig' %}
+
+{% block main_top %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-5">Embedded Signing with the BlueInk API</h1>
+            <p class="lead">
+                This site demonstrates a few ways to embed signing into a website or project using the BlueInk API
+            </p>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        This demo site is built in PHP and uses the official
+                        <a href="https://github.com/blueinkhq/blueink-api-php">BlueInk API PHP Library</a>
+                        and the official <a href="https://github.com/blueinkhq/blueink-api-js">BlueInk API JS Library</a>
+                        to build embedded signing workflows.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-outline-secondary" href="https://github.com/blueinkhq/blueink-api-examples-php" role="button">
+                        <i data-feather="github"></i>
+                        View Demo Source
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row mb-5 mt-5">
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Example 1: Uploaded Doc</h5>
+                        <p class="card-text">
+                            Create an embedded signing using an uploaded document and data entered in a form.
+                        </p>
+                        <a href="/examples/upload" class="btn btn-secondary">View Example</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Example 2: Template</h5>
+                        <p class="card-text">
+                            Create an embedded signing using a Document Template and data entered in a form.
+                        </p>
+                        {# <a href="/examples/template" class="btn btn-secondary">View Example</a> #}
+                        <span>Coming Soon...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Example 3: Embedded Signing Events</h5>
+                        <p class="card-text">
+                            Display Javascript events emitted by the embedded signing frame.
+                        </p>
+                        {# <a href="/examples/events" class="btn btn-secondary">View Example</a> #}
+                        <span>Coming Soon...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>
+                    Code examples can be found on each specific demo page. Or
+                    you can fork the project and / or browse the source code at
+                    <a href="https://github.com/blueinkhq/blueink-api-examples-php">github</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,509 @@
+{% extends 'layout.html.twig' %}
+
+{% block main_top %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="font-weight-light">Embedded Signing with Document Upload</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row mb-5 mt-5">
+            <div class="col-md-8">
+                <h3 class="mb-3">Overview</h3>
+                <p>
+                    This page demonstrates creating an embedded signing session using data
+                    submitted from the user.
+                </p>
+                <ol class="blu-list-roomy">
+                    <li>
+                        The user fills in the form below. On clicking Submit, the form data is POST'ed
+                        (via an AJAX request) to the server.
+                    </li>
+                    <li>
+                        The server receives the POST request, and uses the submitted data to create
+                        a new Bundle for embedded signing.
+                    </li>
+                    <li>
+                        The server returns the embedded signing URL.
+                    </li>
+                    <li>
+                        The <a href="https://github.com/blueinkhq/blueink-embed-js">BlueInk Embedded Signing JS library</a>
+                        uses the embedded signing URL to create a new embedded signing session.
+                    </li>
+                </ol>
+                <p>
+                    You can find a fuller breakdown, with code samples, below.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="container pt-4 pt-md-5 border-top blu-embed-wrap">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-1">Signing Data</h4>
+                        <p class="mb-3">
+                            Enter data that will be used to pre-fill the document for this
+                            demo. If you provide an email, the completed document will be emailed to you.
+                            Data you enter is not used for any other purpose.
+                        </p>
+                        <div id="formContainer">
+                            <form id="formExample1" class="needs-validation mb-4" action="/" method="post" novalidate>
+                                <fieldset>
+                                    <div class="mb-3">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="name">Email</label>
+                                        <input type="text" class="form-control" id="email" name="email">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="company-name">Company Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="company-name" name="company" required>
+                                                <div class="invalid-feedback" style="width: 100%;">
+                                                    Company Name is required.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="title">Title</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="title" id="title">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="mb-3">
+                                                <label for="color">Favorite Color</label>
+                                                <input type="text" class="form-control" name="color" id="color">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mb-4">
+                                    <p class="text-muted">
+                                        After clicking submit, the embedded signing iFrame will show below.
+                                    </p>
+                                    <button class="btn btn-primary" id="submitExample1" type="submit">Submit</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div id="iframe-container" class="blueink-container-01">
+                    <h3 class="text-muted text-center blu-embed-placeholder">Embedded signing iFrame will be placed here</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" class="mt-5">
+        <hr class="my-5">
+        <h1 class="text-center py-2">How It Works</h1>
+
+        <div class="row py-5">
+            <div class="col-md-5">
+                <h2 class="my-3">Frontend Processing</h2>
+                <p>
+                    When the user clicks submit on the form above, we grab the submitted form data (line 4)
+                    and POST it to the server (line 7) with the <a href="https://github.com/axios/axios">axios</a>
+                    HTTP client.
+                </p>
+                <p>
+                    The server then processes the submitted data, creates a new Bundle and returns an
+                    embedded signing URL. See below for additional details of the server-side processing.
+                </p>
+                <p>
+                    In the success handler for the request (line 9) we create a new instance of a BlueInkEmbed
+                    (line 11), using our public API key to identify our BlueInk Account. We then mount the embedded
+                    signing iFrame in the element identified by the selector <code>#iframe-container</code> (line 12).
+                    The <code>replace</code> option tells the embed instance to replace the contents of the container,
+                    as opposed to appending, which is the default.
+                </p>
+                <p>
+                    And that's it! The embedded signing iFrame then loads and the user can review and sign the
+                    document.
+                </p>
+                <p class="mt-5 text-secondary">
+                    Note, this example uses <a href="https://github.com/axios/axios">axios</a> for async HTTP requests
+                    and jQuery for some basic DOM manipulation. Those libraries are used for illustrative purposes
+                    only. The <a href="https://github.com/blueinkhq/blueink-embed-js">blueink-embed-js</a> library can
+                    be used with whatever frontend libraries you prefer: React, Angular, etc.
+                </p>
+            </div>
+            <div class="col-md-7">
+                <pre class="line-numbers language-javascript blu-code-sample">
+<code>$('#formExample1').on('submit', function(ev) {
+    ev.preventDefault();
+
+    const fd = new FormData(ev.target);
+
+    // Submit data with axios
+    axios.post('/embed/from_upload', fd)
+        .then(response => {
+            try {
+                const embedUrl = response.data.embedUrl;
+                const embed = new BlueInkEmbed('{{ blueink_public_api_key }}');
+                embed.mount(embedUrl, '#iframe-container', { replace: true });
+            } catch(error) {
+                console.log(error);
+            }
+        })
+        .catch(error => {
+            // Catch any error returned by our request to the Symfony example app
+            console.log(error);
+        })
+});</code>
+                </pre>
+                <p class="mt-2 text-center">
+                    Note: see the HTML source of this page for the full source code.
+                </p>
+            </div>
+        </div>
+
+        <div class="row py-5">
+            <div class="col-md-10">
+                <h2 class="my-3">Server-side Processing</h2>
+                <p class="text-secondary">
+                    Note, this example is using the <a href="https://symfony.com/">Symfony web framework</a>
+                    for processing the AJAX request and returning a result, but any web framework (or plain PHP) will
+                    do.
+                </p>
+                <h4 class="pt-4">Handling the Request</h4>
+                <p>
+                    See comments in the source code below.
+                </p>
+                <pre class="language-php line-numbers blu-code-sample">
+<code>/**
+ * Route handler that gets called when data is POST'ed to /embed/from_upload.
+ *
+ * Creates a BlueInk signing Bundle, and returns the URL for an embedded signing session.
+ * Note that the uploaded file is not provided in the POST data. Instead, it is a pre-existing
+ * file on a remote server, which will be fetched by its URL.
+ *
+ * In this example, we are using the Symfony framework, which does some automagic things
+ * like dependency injection, and setting up this route handler with the @Route comment below.
+ * Those details are not important for purposes of this example, but checkout the Symfony
+ * framework to learn more.
+ *
+ * @Route("/embed/from_upload", methods={"POST"})
+ */
+public function embed_from_upload(Request $request, LoggerInterface $logger, BlueInkHelper $blueInkHelper)
+{
+    // Get the $apiKey and $apiUrl. The $apiKey is private and should never be
+    // shared. In this example project it is stored in the environment, which is good
+    // practice for keeping App secrets private. We allow the API URL to be overridden
+    // as well, but in most deployments you can use the default BlueInk API URL.
+    $apiKey = $this->getParameter('app.blueink_api_key');
+    $apiUrl = $this->getParameter('app.blueink_api_url');
+
+    // Extract data uploaded in the request.
+    $name = $request->request->get('name');
+    $email = $request->request->get('email');
+    $company = $request->request->get('company');
+    $title = $request->request->get('title');
+    $color = $request->request->get('color');
+
+    // We need an email to send final documents to, so for demo purposes we grab
+    // a default if no email was provided.
+    if (!$email) {
+        $email = $this->getParameter('app.blueink_default_signer_email');
+    }
+
+    try {
+        // This method handles the actual creation of the Bundle and
+        // retrieving the embedded signing URL. See BlueInkHelper.php
+        // for details.
+        $embedUrl = $blueInkHelper->createBundleFromDocument($apiKey, $apiUrl, $email, $name, $company, $title, $color);
+    } catch (RequestException $e) {
+        // createBundleFromDocument() can throw a RequestException, indicating
+        // one of the requests to the BlueInk API failed
+
+        // Try to get the response, so we can provide more details
+        // on any error that occurred.
+        $response = $e->getResponse();
+        if ($response) {
+            $status = $response->getStatusCode();
+
+            // Error details are returned as JSON in the response body.
+            // The error details should point you to the specific issue
+            // with a failed BlueInk API request.
+            $responseBody = $response->getBody();
+            $logger->info($responseBody);
+
+            $errorData = [
+                'error' => "BlueInk API request failed with status code $status"
+            ];
+        } else {
+            $logger->warning('No response from BlueInk API');
+
+            $errorData = [
+                'error' => "BlueInk API request failed. No response when attempting to connect to $apiUrl"
+            ];
+        }
+
+        return $this->json($errorData, 503);
+    }
+
+    // Return the embedded signing URL so that the frontend can
+    // create an embedded signing iFrame.
+    return $this->json(['embedUrl' => $embedUrl]);
+}</code>
+                </pre>
+            </div>
+        </div>
+        <div class="row py-3">
+            <div class="col-md-10">
+                <h4 class="pt-4">Creating the Bundle and Retrieving the Embedded Signing URL</h4>
+                <p>See comments in the code below.</p>
+                <pre class="language-php line-numbers blu-code-sample">
+<code>// BlueInk\ApiClient\Client is provided blueink-client-php library.
+// See https://github.com/blueinkhq/blueink-client-php
+use BlueInk\ApiClient\Client;
+use GuzzleHttp\Exception\RequestException;
+
+class BlueInkHelper
+{
+    const DOC_URL = 'https://blueink.com/wp-content/uploads/shared/example-doc-for-1-signer.pdf';
+
+    /**
+     * Create a new Bundle using a document located at DOC_URL.
+     *
+     * @param $apiKey the private API key used to make authenticated requests to the BlueInk API
+     * @param $apiUrl the BlueInk API URL, used to initialize the API client
+     * @param $email The signers email
+     * @param '' $name The signers name
+     * @param '' $company The company name to use as an initial value in the Bundle
+     * @param '' $title signer title to use as an initial value in the Bundle
+     * @param '' $color signer's favorite color to use as an initial value in the Bundle
+     * @return {string} the embedded signing URL
+     * @throws RequestException if a request to the BlueInk API fails or returns a 4xx error
+     */
+    public function createBundleFromDocument(
+        $apiKey, $apiUrl, $email, $name = '', $company = '', $title = '', $color = ''
+    ) {
+        // Setup the requestData that will be submitted to the BlueInk API
+        // to create the new Bundle.
+        $requestData = [
+            'label' => 'A Test Bundle',
+            'is_test' => true,
+            // Setup signer information.
+            'packets' => [
+                [
+                    'name' => $name ? $name : 'Anonymous Signer',
+                    'email' => $email,
+                    'key' => 'signer-1',
+                    // This is how we designate that this signer will sign in an embedded
+                    // signing session. Other options for delivery are 'email' or 'phone'.
+                    'deliver_via' => 'embed',
+                ],
+            ],
+            // The Bundle will have 1 document, which is fetched from DOC_URL.
+            // The document has 5 fields. Initial values are set for all of those
+            // fields, except the Initials field which cannot have a value.
+            'documents' => [
+                [
+                    'key' => 'doc-01',
+                    // The document will be fetched from a remote URL. Alternatively, the
+                    // document could be uploaded as part of this request.
+                    'file_url' => BlueInkHelper::DOC_URL,
+                    'fields' => [
+                        [
+                            // Every field needs a unique key.
+                            'key' => 'field-01',
+                            'kind' => 'txt',
+                            // 'editors' assigns the field to a signer. 'signer-1' matches
+                            // the 'key' used when defining 'packets' above.
+                            'editors' => ['signer-1'],
+                            // This sets the initial value for this field. If $name is null or
+                            // blank, no initial value will be set.
+                            'initial_value' => $name,
+                            'label' => 'Please enter your name',
+                            'required' => false,
+                            // These coordinates place the field on the document. The document
+                            // uses a coordinate system of 0 to 100 from the lower left corner
+                            // of the document.
+                            'page' => 1,
+                            'x' => 30,
+                            'y' => 77,
+                            'w' => 20,  // width of the field
+                            'h' => 2,   // height of the field
+                        ],
+                        [
+                            'key' => 'field-02',
+                            'kind' => 'txt',
+                            'editors' => ['signer-1'],
+                            'initial_value' => $company,
+                            'label' => 'Enter your company',
+                            'required' => false,
+                            'page' => 1,
+                            'x' => 30,
+                            'y' => 73.4,
+                            'w' => 20,
+                            'h' => 2,
+                        ],
+                        [
+                            'key' => 'field-03',
+                            'kind' => 'txt',
+                            'editors' => ['signer-1'],
+                            'initial_value' => $title,
+                            'label' => 'Enter your title',
+                            'required' => false,
+                            'page' => 1,
+                            'x' => 30,
+                            'y' => 69.5,
+                            'w' => 20,
+                            'h' => 2,
+                        ],
+                        [
+                            'key' => 'field-04',
+                            'kind' => 'txt',
+                            'editors' => ['signer-1'],
+                            'initial_value' => $color,
+                            'label' => 'Your favorite color',
+                            'required' => true,
+                            'page' => 1,
+                            'x' => 30,
+                            'y' => 65.8,
+                            'w' => 20,
+                            'h' => 2,
+                        ],
+                        [
+                            'key' => 'field-05',
+                            'kind' => 'ini',
+                            'editors' => ['signer-1'],
+                            'label' => 'Enter your initials here, if you like:',
+                            'required' => false,
+                            'page' => 1,
+                            'x' => 14,
+                            'y' => 52.3,
+                            'w' => 8,
+                            'h' => 5,
+                        ],
+                    ],
+                ]
+            ]
+        ];
+
+        // Initialize the BlueInk API Client. The $apiUrl is not required, and defaults
+        // to https://api.blueink.com/api/v2
+        $client = new Client($apiKey, [ 'baseUri' => $apiUrl ]);
+
+        // Create the Bundle. This immediately returns a Bundle, but that
+        // Bundle is likely in a pending state, while the document is being processed.
+        // However, we can immediately fetch the embedded signing URL.
+        $newBundle = $client->bundles->create(['json' => $requestData]);
+
+        // Get the ID of the Packet, which we will use
+        // to retrieve an embedded signing URL. A Packet holds data related to a
+        // signle signer on the Bundle
+        $packetId = $newBundle->packets[0]->id;
+
+        // Retrieve the embedded signing URL
+        $responseData = $client->packets->embedUrl($packetId);
+        $embedUrl = $responseData->url;
+
+        return $embedUrl;
+    }
+}</code>
+                </pre>
+            </div>
+        </div>
+        <div class="row py-3">
+            <div class="col-md-8">
+                <h2>More Resources</h2>
+                <ul>
+                    <li>
+                        <a href="https://github.com/blueinkhq/blueink-api-examples-php">Source Code</a>,
+                        for this site.
+                    </li>
+                    <li>
+                        <a href="https://blueink.com/esignature-api/api-docs/#operation/createBundle">
+                            BlueInk API Docs
+                        </a>
+                    </li>
+                    <li>API Docs for
+                        <a href="https://blueink.com/esignature-api/api-docs/#operation/createBundle">Create Bundle Request</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/blueinkhq/blueink-client-php">blueink-client-php</a>,
+                        the BlueInk API PHP client library.
+                    </li>
+                    <li>
+                        <a href="https://github.com/blueinkhq/blueink-embed-js">blueink-embed-php</a>,
+                        the BlueInk Embedded Signing Javascript Library.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block pagescripts %}
+    <script>
+        $(function() {
+            $('#formExample1').on('submit', function(ev) {
+                const fd = new FormData(ev.target);
+
+                ev.preventDefault();
+                onSubmit();
+                console.log('Submitting data via AJAX request');
+
+                // Submit data with axios
+                axios.post('/embed/from_upload', fd)
+                    .then(response => {
+                        console.log('Response received');
+
+                        try {
+                            const embedUrl = response.data.embedUrl;
+                            const embed = new BlueInkEmbed('{{ blueink_public_api_key }}');
+                            embed.mount(embedUrl, '#iframe-container', { replace: true });
+                            console.log('Mounted embedded signing iFrame');
+                        } catch(error) {
+                            displayError(error.message);
+                            console.log(error);
+                        }
+                    })
+                    .catch(error => {
+                        // Catch any error returned by our request to the Symfony example app
+                        displayError(error.response.data.error || error.message);
+                        console.log(error);
+                    })
+            });
+
+            function displayError(message) {
+                const errorHtml = '<div class="alert alert-danger" role="alert">'
+                    + '<h3 class="alert-heading">Error Mounting iFrame</h3>'
+                    + '<p>' + message + '</p>'
+                    + '</div>';
+
+                $('#iframe-container').html(errorHtml);
+            }
+
+            function onSubmit() {
+                $('#formExample1 fieldset').prop('disabled', true);
+                $('#formContainer').append(
+                    '<div class="alert alert-primary" role="alert">'
+                    + 'Data submitted. Embedded signing is loading. Refresh to start over.'
+                    + '</div>'
+                );
+            }
+        });
+    </script>
+
+
+{% endblock %}
