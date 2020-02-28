@@ -1,0 +1,5 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        blueink_public_api_key: '%env(BLUEINK_PUBLIC_API_KEY)%'
+        blueink_embed_js_url: '%env(BLUEINK_EMBED_JS_URL)%'

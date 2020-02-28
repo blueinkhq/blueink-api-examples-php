@@ -1,0 +1,4 @@
+framework:
+  assets:
+    base_path: '/assets'
+    version: 'v0.1'

@@ -1,0 +1,69 @@
+.blu-logo {
+    width: 140px;
+}
+
+.blu-logotext {
+    margin: 0 0 0 1rem;
+    position: relative;
+    bottom: -7px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.blu-text-small {
+    font-size: 14px;
+}
+
+.blu-embed-wrap {
+    min-height: 300px;
+}
+
+.blu-embed-placeholder {
+    padding-top: 100px;
+}
+
+.blu-list-roomy li {
+    margin-bottom: 0.5rem;
+}
+
+pre.blu-code-sample.blu-code-sample {
+    font-size: 14px;
+}
+
+.blu-log {
+    padding: 1rem;
+    max-height: 240px;
+    overflow-y: auto;
+    background: #F5F5F5;
+}
+
+.blueink-container-01 {
+    width: 960px;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    background: #F5F5F5;
+    box-shadow: 0 0 10px -1px #00000060;
+}
+
+.blueink-container-01 .blueink-sig-iframe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.blueink-container-01::before {
+    content: "";
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: calc(11 / 10 * 100%);
+}
+.blueink-container-01::after { /* to clear float */
+    content: "";
+    display: table;
+    clear: both;
+}
