@@ -56,7 +56,7 @@ class BlueInkHelper
                         [
                             // Every field needs a unique key.
                             'key' => 'field-01',
-                            'kind' => 'txt',
+                            'kind' => 'inp',
                             // 'editors' assigns the field to a signer. 'signer-1' matches
                             // the 'key' used when defining 'packets' above.
                             'editors' => ['signer-1'],
@@ -76,7 +76,7 @@ class BlueInkHelper
                         ],
                         [
                             'key' => 'field-02',
-                            'kind' => 'txt',
+                            'kind' => 'inp',
                             'editors' => ['signer-1'],
                             'initial_value' => $company,
                             'label' => 'Enter your company',
@@ -89,7 +89,7 @@ class BlueInkHelper
                         ],
                         [
                             'key' => 'field-03',
-                            'kind' => 'txt',
+                            'kind' => 'inp',
                             'editors' => ['signer-1'],
                             'initial_value' => $title,
                             'label' => 'Enter your title',
@@ -102,7 +102,7 @@ class BlueInkHelper
                         ],
                         [
                             'key' => 'field-04',
-                            'kind' => 'txt',
+                            'kind' => 'inp',
                             'editors' => ['signer-1'],
                             'initial_value' => $color,
                             'label' => 'Your favorite color',
