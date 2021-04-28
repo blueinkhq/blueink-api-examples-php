@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d7eae9b596e5d5050cda8204f88ddbd",
+    "content-hash": "45c3b1bcff60d96d86ce752c3e09c283",
     "packages": [
         {
             "name": "blueink/blueink-client-php",
