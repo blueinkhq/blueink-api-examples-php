@@ -96,12 +96,29 @@
 
                                     <hr class="mb-4">
                                     <p class="text-muted">
-                                        After clicking submit, the embedded signing iFrame will show below.
+                                        After clicking submit, the embedded signing iFrame will show
+                                        <span class="">below</span><span class="">to the right</span>.
                                     </p>
                                     <button class="btn btn-primary" id="submitExample1" type="submit">Submit</button>
                                 </fieldset>
                             </form>
                         </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="mb-1">Events</h5>
+                        <p class="mb-2 text-muted">
+                            Status:
+                            <span id="ready-container">
+                                <span class="badge badge-secondary">Not Ready to Sign</span>
+                            </span>
+                        </p>
+                        <hr>
+                        <p class="mb-3 text-muted">
+                            Events emitted by the Embedded Signing iFrame will show below.
+                        </p>
+                        <pre class="blu-log"><code id="event-container"></code></pre>
                     </div>
                 </div>
             </div>
@@ -171,7 +188,8 @@
 });</code>
                 </pre>
                 <p class="mt-2 text-center">
-                    Note: see the HTML source of this page for the full source code.
+                    Note: see the HTML source of this page for the full source code, including examples
+                    of handling Embedded signing events.
                 </p>
             </div>
         </div>
@@ -472,6 +490,17 @@ class BlueInkHelper
                         try {
                             const embedUrl = response.data.embedUrl;
                             const embed = new BlueInkEmbed('{{ blueink_public_api_key }}');
+
+                            embed.on(BlueInkEmbed.EVENT.ANY, (eventType, eventData) => {
+                                console.log('Received event from embedded iFrame', eventType, eventData);
+                                logEvent(eventType, eventData);
+                            });
+
+                            embed.on(BlueInkEmbed.EVENT.READY, (eventData) => {
+                                $('#ready-container').html('<span class="badge badge-success">Ready to Sign</span>');
+                                console.log('Received READY event from embedded iFrame', eventData);
+                            });
+
                             embed.mount(embedUrl, '#iframe-container', { replace: true });
                             console.log('Mounted embedded signing iFrame');
                         } catch(error) {
@@ -493,6 +522,11 @@ class BlueInkHelper
                     + '</div>';
 
                 $('#iframe-container').html(errorHtml);
+            }
+
+            function logEvent(evType, evData) {
+                const d = new Date();
+                $('#event-container').append(`${d.toISOString()} -- ${evType}:\n${JSON.stringify(evData)}\n\n`);
             }
 
             function onSubmit() {
