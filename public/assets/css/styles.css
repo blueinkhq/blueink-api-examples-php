@@ -31,10 +31,11 @@ pre.blu-code-sample.blu-code-sample {
 }
 
 .blu-log {
-    padding: 1rem;
-    max-height: 240px;
+    padding: 0.8rem 1rem;
+    max-height: 300px;
     overflow-y: auto;
     background: #F5F5F5;
+    font-size: 12px;
 }
 
 .blueink-container-01 {
