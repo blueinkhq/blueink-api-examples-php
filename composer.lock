@@ -8,25 +8,25 @@
     "packages": [
         {
             "name": "blueink/blueink-client-php",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/blueinkhq/blueink-client-php.git",
-                "reference": "0be370bdd7d1608b2f03cf3358b8986bf286e08d"
+                "reference": "6c700e7032c7706c0c4dae7bf81a7d95484782bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blueinkhq/blueink-client-php/zipball/0be370bdd7d1608b2f03cf3358b8986bf286e08d",
-                "reference": "0be370bdd7d1608b2f03cf3358b8986bf286e08d",
+                "url": "https://api.github.com/repos/blueinkhq/blueink-client-php/zipball/6c700e7032c7706c0c4dae7bf81a7d95484782bd",
+                "reference": "6c700e7032c7706c0c4dae7bf81a7d95484782bd",
                 "shasum": ""
             },
             "require": {
-                "ezdeliveryco/snorlax": "^1.1",
-                "guzzlehttp/guzzle": "~6.1",
-                "php": ">=5.6"
+                "blueink/snorlax": "~1.0",
+                "guzzlehttp/guzzle": "~6.5",
+                "php": ">=7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.5"
+                "phpunit/phpunit": "^9"
             },
             "type": "library",
             "autoload": {
@@ -50,9 +50,63 @@
             ],
             "support": {
                 "issues": "https://github.com/blueinkhq/blueink-client-php/issues",
-                "source": "https://github.com/blueinkhq/blueink-client-php/tree/v1.0.1"
+                "source": "https://github.com/blueinkhq/blueink-client-php/tree/v1.1.0"
             },
-            "time": "2020-02-27T23:44:44+00:00"
+            "time": "2021-04-28T21:43:43+00:00"
+        },
+        {
+            "name": "blueink/snorlax",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blueinkhq/snorlax.git",
+                "reference": "931a84e56087232c9fce45537affb403c14c44ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blueinkhq/snorlax/zipball/931a84e56087232c9fce45537affb403c14c44ae",
+                "reference": "931a84e56087232c9fce45537affb403c14c44ae",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.1",
+                "kevinrob/guzzle-cache-middleware": "^1.0",
+                "monolog/monolog": "^1.21",
+                "php": ">=7.3",
+                "rtheunissen/guzzle-log-middleware": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Snorlax\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A lightweight REST client that gives you full control of your resources",
+            "homepage": "https://github.com/blueinkhq/snorlax",
+            "keywords": [
+                "Guzzle",
+                "api",
+                "php",
+                "rest",
+                "restful"
+            ],
+            "support": {
+                "issues": "https://github.com/blueinkhq/snorlax/issues",
+                "source": "https://github.com/blueinkhq/snorlax"
+            },
+            "time": "2021-04-28T21:35:33+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -203,60 +257,6 @@
                 }
             ],
             "time": "2020-05-25T17:44:05+00:00"
-        },
-        {
-            "name": "ezdeliveryco/snorlax",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ezdeliveryco/snorlax.git",
-                "reference": "b7f40413f5954c6c71f7f9a7c7accfd1ec87d606"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ezdeliveryco/snorlax/zipball/b7f40413f5954c6c71f7f9a7c7accfd1ec87d606",
-                "reference": "b7f40413f5954c6c71f7f9a7c7accfd1ec87d606",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~6.1",
-                "kevinrob/guzzle-cache-middleware": "^1.0",
-                "monolog/monolog": "^1.21",
-                "php": ">=5.5.9",
-                "rtheunissen/guzzle-log-middleware": "^0.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~5.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Snorlax\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A lightweight REST client that gives you full control of your resources",
-            "homepage": "https://github.com/ezdeliveryco/snorlax",
-            "keywords": [
-                "Guzzle",
-                "api",
-                "rest",
-                "restful"
-            ],
-            "support": {
-                "issues": "https://github.com/ezdeliveryco/snorlax/issues",
-                "source": "https://github.com/ezdeliveryco/snorlax"
-            },
-            "abandoned": true,
-            "time": "2017-10-26T22:02:43+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1134,21 +1134,21 @@
         },
         {
             "name": "rtheunissen/guzzle-log-middleware",
-            "version": "v0.4.2",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rtheunissen/guzzle-log-middleware.git",
-                "reference": "6a15b7f71c6fc3f8456abeed530b2f12846f075f"
+                "reference": "75ee11fb3781d4eee96c4949497a57ee91853459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rtheunissen/guzzle-log-middleware/zipball/6a15b7f71c6fc3f8456abeed530b2f12846f075f",
-                "reference": "6a15b7f71c6fc3f8456abeed530b2f12846f075f",
+                "url": "https://api.github.com/repos/rtheunissen/guzzle-log-middleware/zipball/75ee11fb3781d4eee96c4949497a57ee91853459",
+                "reference": "75ee11fb3781d4eee96c4949497a57ee91853459",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "~6.0",
-                "php": ">=5.5",
+                "guzzlehttp/guzzle": "~6.0|^7.0",
+                "php": ">=7.2",
                 "psr/log": "~1.0"
             },
             "require-dev": {
@@ -1184,9 +1184,9 @@
             ],
             "support": {
                 "issues": "https://github.com/rtheunissen/guzzle-log-middleware/issues",
-                "source": "https://github.com/rtheunissen/guzzle-log-middleware/tree/master"
+                "source": "https://github.com/rtheunissen/guzzle-log-middleware/tree/v1.0.0"
             },
-            "time": "2019-02-07T18:58:23+00:00"
+            "time": "2020-11-02T20:57:39+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",

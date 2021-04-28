@@ -2,6 +2,9 @@
     "blueink/blueink-client-php": {
         "version": "dev-master"
     },
+    "blueink/snorlax": {
+        "version": "1.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -31,9 +34,6 @@
         "files": [
             "config/packages/dev/easy_log_handler.yaml"
         ]
-    },
-    "ezdeliveryco/snorlax": {
-        "version": "1.1"
     },
     "guzzlehttp/guzzle": {
         "version": "6.5.0"
