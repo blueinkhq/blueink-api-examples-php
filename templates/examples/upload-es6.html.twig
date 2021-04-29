@@ -1,0 +1,17 @@
+{% extends 'examples/upload.html.twig' %}
+
+{% block main_top %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="font-weight-light">Embedded Signing with Document Upload (es6 version)</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block pagescripts %}
+    {# Use the compiled / bundles es6 version of the javascript #}
+    <script>
+        const BLUEINK_PUBLIC_API_KEY = '{{ blueink_public_api_key }}';
+    </script>
+    <script src="{{ asset('js/upload.js') }}"></script>
+{% endblock %}

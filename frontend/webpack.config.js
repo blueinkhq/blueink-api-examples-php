@@ -1,13 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/upload.js',
+    mode: 'development',
+    devtool: 'source-map',
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'blueink-embed.js',
-        library: 'BlueInkEmbed',
-        libraryExport: 'default',
-        libraryTarget: 'umd',
+        path: path.resolve(__dirname, '../public/assets/js'),
+        filename: 'upload.js',
     },
     resolve: {
         modules: [

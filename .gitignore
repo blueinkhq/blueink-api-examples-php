@@ -16,4 +16,6 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+# Javascript related files
 node_modules/
+yarn-error.log
