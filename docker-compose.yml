@@ -14,7 +14,6 @@ services:
     build:
       context: .
     volumes:
-      # - ./config/vhost.conf:/etc/apache2/sites-available/000-default.conf
       - ./var/cache:/var/www/html/var/cache
       - ./var/log:/var/www/html/var/log
       - vendor:/var/www/html/vendor
