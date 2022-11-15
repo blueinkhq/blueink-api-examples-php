@@ -9,7 +9,7 @@ COPY . /var/www/html
 
 COPY ./config/vhost.conf /etc/apache2/sites-available/000-default.conf
 
-RUN cd /etc/apache2/sites-available/ && a2ensite *
+RUN cd /etc/apache2/sites-available/ && a2ensite 000-default.conf
 
 WORKDIR /var/www/html/
 
