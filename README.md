@@ -48,6 +48,9 @@ to identify your BlueInk Account. The private API key should always be kept secr
 to make authenticated calls to the BlueInk API from the backend.
 
 You are now ready to run the project locally using the built-in Symfony HTTP server.
+(Note, this requires that you have installed the symfony CLI
+so that the `symfony` command is available - see the 
+[symfony CLI installation instructions]((https://symfony.com/download))).
 ```bash
 $ symfony server:start
 ``` 

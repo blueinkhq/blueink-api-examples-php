@@ -1,0 +1,34 @@
+{
+  "name": "blueink-api-examples-php-upload-es6",
+  "version": "1.0.0",
+  "description": "An example of using blueink-embed-js as an es6 module in a babel project",
+  "main": "index.js",
+  "repository": "git@github.com-gentry:blueinkhq/blueink-api-examples-php.git",
+  "author": {
+    "name": "BlueInk",
+    "email": "apisupport@blueink.com",
+    "url": "https://blueink.com"
+  },
+  "license": "MIT",
+  "browserslist": [
+    "last 1 version",
+    "> 0.25%",
+    "not dead",
+    "IE 10"
+  ],
+  "dependencies": {
+    "@blueink360/blueink-embed-js": "^1.2.0",
+    "core-js": "^3.11.1",
+    "jquery": "^3.6.0",
+    "webpack": "^5.36.1",
+    "webpack-cli": "^4.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "babel-loader": "^8.2.2"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  }
+}

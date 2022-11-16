@@ -29,6 +29,14 @@ class DefaultController extends AbstractController {
     }
 
     /**
+     * @Route("/examples/upload-es6")
+     */
+    public function example_upload_es6()
+    {
+        return $this->render('examples/upload-es6.html.twig');
+    }
+
+    /**
      * Route handler that gets called when data is POST'ed to /embed/from_upload.
      *
      * Creates a BlueInk signing Bundle, and returns the URL for an embedded signing session.

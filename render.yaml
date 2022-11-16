@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: symfony
+    env: docker
+    envVars:
+      - key: APACHE_DOCUMENT_ROOT
+        value: /var/www/html/public
