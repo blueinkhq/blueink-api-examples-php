@@ -19,3 +19,7 @@
 # Javascript related files
 node_modules/
 yarn-error.log
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
