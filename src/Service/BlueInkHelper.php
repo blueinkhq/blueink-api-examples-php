@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 
 class BlueInkHelper
 {
-    const DOC_URL = 'https://blueink.com/wp-content/uploads/shared/example-doc-for-1-signer.pdf';
+    const DOC_URL = 'https://public-assets.blueink.com/example-docs/example-doc-for-1-signer.pdf';
 
     /**
      * Create a new Bundle using a document located at DOC_URL.
