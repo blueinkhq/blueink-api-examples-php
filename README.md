@@ -3,7 +3,7 @@
 This project contains examples of working with the 
 [BlueInk eSignature API](https://blueink.com/esignature-api/) using
 the [blueink-client-php](https://github.com/blueinkhq/blueink-client-php) 
-library, and the [blueink-embed-js](https://github.com/blueinkhq/blueink-client-php) 
+library, and the [blueink-embed-js](https://github.com/blueinkhq/blueink-embed-js) 
 library for embedded signings.
 
 It is built using the Symfony Framework for basic web app functionality, 
