@@ -1,9 +1,10 @@
-FROM php:8.0.0-apache
+FROM php:8.2-apache
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && apt-get update && apt-get install -y git libzip-dev unzip \
+RUN apt-get update && apt-get install -y --no-install-recommends git libzip-dev unzip \
+    && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
-    && a2enmod rewrite headers 
+    && a2enmod rewrite headers \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY . /var/www/html
 
