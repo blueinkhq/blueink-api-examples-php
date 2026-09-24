@@ -44,7 +44,7 @@ class DefaultController extends AbstractController {
      * file on a remote server, which will be fetched by its URL.
      *
      * In this example, we are using the Symfony framework, which does some automagic things
-     * like dependency injection, and setting up this route handler with the @Route comment below.
+     * like dependency injection, and setting up this route handler with the Route annotation below.
      * Those details are not important for purposes of this example, but checkout the Symfony
      * framework to learn more.
      *
